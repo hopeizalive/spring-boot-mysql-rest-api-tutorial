@@ -1,6 +1,9 @@
 package com.example.easynotes.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,20 +20,20 @@ public class Classes {
     @Column(columnDefinition = "TEXT")
     private String classDescription;
 
-    @Column(length = 30)
-    private String classSchedule;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate classSchedule;
 
     private Integer maximumCapacity;
 
     @OneToMany(mappedBy = "classes", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeClass> employeeClass = new ArrayList<>();
 
-    // Getters and Setters
+
     public long getClassID() {
         return classID;
     }
 
-    public void setClassID(Integer classID) {
+    public void setClassID(long classID) {
         this.classID = classID;
     }
 
@@ -50,11 +53,11 @@ public class Classes {
         this.classDescription = classDescription;
     }
 
-    public String getClassSchedule() {
+    public LocalDate getClassSchedule() {
         return classSchedule;
     }
 
-    public void setClassSchedule(String classSchedule) {
+    public void setClassSchedule(LocalDate classSchedule) {
         this.classSchedule = classSchedule;
     }
 
@@ -66,7 +69,6 @@ public class Classes {
         this.maximumCapacity = maximumCapacity;
     }
 
-
     public List<EmployeeClass> getEmployeeClass() {
         return employeeClass;
     }
@@ -74,7 +76,5 @@ public class Classes {
     public void setEmployeeClass(List<EmployeeClass> employeeClass) {
         this.employeeClass = employeeClass;
     }
-
-
 }
 
