@@ -1,5 +1,4 @@
 package com.example.easynotes.model;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -8,28 +7,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
-
-/**
- * Created by rajeevkumarsingh on 27/06/17.
- */
 @Entity
-@Table(name = "notes")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
-        allowGetters = true)
-public class Note {
+public class AdminLogin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long adminID;
 
-    @NotBlank
-    private String title;
-
-    @NotBlank
-    private String content;
-
-    @NotBlank
-    private String extra;
+    @Column(nullable = false, length = 20)
+    private String password;
 
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -40,29 +26,24 @@ public class Note {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+    // Getters and Setters
 
-    public Long getId() {
-        return id;
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getTitle() {
-        return title;
+
+    public Long getAdminID() {
+        return adminID;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setAdminID(Long adminID) {
+        this.adminID = adminID;
     }
 
     public Date getCreatedAt() {
@@ -80,11 +61,4 @@ public class Note {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-    public String getExtra() {return extra; }
-    public void setExtra(String extra) {
-        this.extra = extra;
-    }
-
-
 }
