@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Classes {
@@ -20,13 +21,18 @@ public class Classes {
     @Column(columnDefinition = "TEXT")
     private String classDescription;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate classSchedule;
+    private String classSchedule;
 
     private Integer maximumCapacity;
 
     @OneToMany(mappedBy = "classes", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeClass> employeeClass = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "classes", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<MemberClass> memberClass = new ArrayList<>();
+
 
 
     public long getClassID() {
@@ -53,11 +59,11 @@ public class Classes {
         this.classDescription = classDescription;
     }
 
-    public LocalDate getClassSchedule() {
+    public String getClassSchedule() {
         return classSchedule;
     }
 
-    public void setClassSchedule(LocalDate classSchedule) {
+    public void setClassSchedule(String classSchedule) {
         this.classSchedule = classSchedule;
     }
 
@@ -76,5 +82,9 @@ public class Classes {
     public void setEmployeeClass(List<EmployeeClass> employeeClass) {
         this.employeeClass = employeeClass;
     }
+
+    public List<MemberClass> getMemberClass() {return memberClass;}
+
+    public void setMemberClass(List<MemberClass> memberClass) {this.memberClass = memberClass;}
 }
 
