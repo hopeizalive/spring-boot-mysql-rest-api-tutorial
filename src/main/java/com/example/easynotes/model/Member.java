@@ -93,4 +93,13 @@ public class Member {
     public void setMemberClasses(List<MemberClass> memberClasses) {
         this.memberClasses = memberClasses;
     }
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Payment> payments = new ArrayList<>();
+
+    public List<Payment> getPayments() {return payments;}
+
+    public void setPayments(List<Payment> payments) {this.payments = payments;}
+
 }

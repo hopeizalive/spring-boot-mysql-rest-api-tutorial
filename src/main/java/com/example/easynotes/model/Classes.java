@@ -88,5 +88,13 @@ public class Classes {
     public List<MemberClass> getMemberClass() {return memberClass;}
 
     public void setMemberClass(List<MemberClass> memberClass) {this.memberClass = memberClass;}
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<Payment> payments = new ArrayList<>();
+
+    public List<Payment> getPayments() {return payments;}
+
+    public void setPayments(List<Payment> payments) {this.payments = payments;}
 }
 

@@ -2,6 +2,7 @@ package com.example.easynotes.controller;
 import com.example.easynotes.model.*;
 
 import com.example.easynotes.repository.ClassesRepository;
+import com.example.easynotes.repository.PaymentRepository;
 import com.example.easynotes.repository.MemberClassRepository;
 import com.example.easynotes.repository.MemberRepository;
 import com.example.easynotes.repository.FeedbackRepository;
@@ -116,6 +117,15 @@ public class MemberController {
 
         return member.getFeedback(); // Assumes getFeedback() returns List<Feedback>
     }
+    // Endpoint to retrieve feedback for a specific member
+    @GetMapping("/{memberId}/payment")
+    public List<Payment> getMemberPayment(@PathVariable Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+
+        return member.getPayments(); // Assumes getFeedback() returns List<Feedback>
+    }
+
 
     // POST: Assign a member to a class
 // POST: Assign a member to a class
