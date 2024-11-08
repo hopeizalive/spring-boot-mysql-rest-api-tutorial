@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Classes {
@@ -31,6 +32,7 @@ public class Classes {
 
     @OneToMany(mappedBy = "classes", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
+    @JsonManagedReference
     private List<MemberClass> memberClass = new ArrayList<>();
 
 

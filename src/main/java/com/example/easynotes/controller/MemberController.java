@@ -55,6 +55,31 @@ public class MemberController {
         return null;
     }
 
+    @PostMapping("/memclasses")
+    public MemberClass assignClassToMember(@RequestBody Map<String, Long> body) {
+        // Log for debugging to check if body is received correctly
+        System.out.println("Request body: " + body);
+
+        Long memberId = body.get("memberId");
+        Long classId = body.get("classId");
+
+        if (memberId == null || classId == null) {
+            throw new RuntimeException("memberId and classId are required");
+        }
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found"));
+        Classes classes = classesRepository.findById(classId)
+                .orElseThrow(() -> new RuntimeException("Class not found"));
+
+        MemberClass memberClass = new MemberClass();
+        memberClass.setMember(member);
+        memberClass.setClasses(classes);
+
+        return memberClassRepository.save(memberClass);
+    }
+
+
     @GetMapping("/{memberId}")
     public Optional<Member> getMemberById(@PathVariable Long memberId) {
         return memberRepository.findById(memberId);
@@ -94,6 +119,7 @@ public class MemberController {
 
     // POST: Assign a member to a class
 // POST: Assign a member to a class
+
 
 
 }

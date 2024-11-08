@@ -1,6 +1,7 @@
 package com.example.easynotes.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -18,6 +19,7 @@ public class MemberClass {
 
     @ManyToOne
     @JoinColumn(name = "class_id")
+    @JsonBackReference
     private Classes classes;
 
 
