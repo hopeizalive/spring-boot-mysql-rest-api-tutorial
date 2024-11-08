@@ -94,42 +94,6 @@ public class MemberController {
 
     // POST: Assign a member to a class
 // POST: Assign a member to a class
-    @PostMapping("/classes")
-    public ResponseEntity<?> assignClassToMember(@RequestBody Map<String, Long> body) {
-        try {
-            // Retrieve memberId and classId from the request body
-            Long memberId = body.get("memberId");
-            Long classId = body.get("classId");
 
-            // Check if either memberId or classId is missing in the request
-            if (memberId == null || classId == null) {
-                return ResponseEntity.badRequest().body("Error: 'memberId' and 'classId' are required.");
-            }
-
-            // Find the Member by ID, throw an exception if not found
-            Member member = memberRepository.findById(memberId)
-                    .orElseThrow(() -> new RuntimeException("Member with ID " + memberId + " not found."));
-
-            // Find the Class by ID, throw an exception if not found
-            Classes classes = classesRepository.findById(classId)
-                    .orElseThrow(() -> new RuntimeException("Class with ID " + classId + " not found."));
-
-            // Create the MemberClass relationship and set Member and Class
-            MemberClass memberClass = new MemberClass();
-            memberClass.setMember(member);
-            memberClass.setClasses(classes);
-
-            // Save the MemberClass relationship to the database
-            MemberClass savedMemberClass = memberClassRepository.save(memberClass);
-
-            // Return a success response with the saved object
-            return ResponseEntity.ok(savedMemberClass);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Handle unexpected errors, such as database issues
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred: " + e.getMessage());
-        }
-    }
 
 }
